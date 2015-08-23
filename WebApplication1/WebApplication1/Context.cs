@@ -15,7 +15,7 @@ namespace test
             public Context()
                 : base("MyInterview")
             {
-           //    Database.SetInitializer<Context>(new MyInterviewDBInitializer());
+              Database.SetInitializer<Context>(new MyInterviewDBInitializer());
             }
 
             public DbSet<Employee> Employees { get; set; }

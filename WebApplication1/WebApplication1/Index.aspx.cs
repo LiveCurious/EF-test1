@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using EF_Code_First_Tutorials;
 using test;
 
-namespace EF_Code_First_Tutorials
+namespace test
 {
     public partial class WebForm1 : System.Web.UI.Page
     {
@@ -15,8 +15,8 @@ namespace EF_Code_First_Tutorials
         {
             using (var ctx = new Context())
             {
-               Employee stud = new Employee() { EmployeeId  = new Guid(), Name = "Test Student", DateOfBith = new DateTime(2000, 12, 12) };
-
+               Employee stud = new Employee() { EmployeeId  =  Guid.NewGuid(), Name = "Test Student", DateOfBith = new DateTime(2000, 12, 12) };
+                
                ctx.Employees.Add(stud);
                 ctx.SaveChanges();
             }
