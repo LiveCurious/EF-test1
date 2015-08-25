@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -17,10 +18,17 @@ namespace test
             InitializeValues();
             using (var ctx = new Context())
             {
-                var list =  from s in ctx.Employees
+                var listOfAllEmployees =  from s in ctx.Employees
                             select s.Name;
 
-                var t = 10;
+                listOfAllEmployees = listOfAllEmployees.Distinct();
+
+                var listOfLatestCourses = from s in ctx.Education  select s;
+               listOfLatestCourses = listOfLatestCourses.Take(10);
+
+
+                var employeeId = Guid.NewGuid();
+                var listOfLatestCoursesForEmployee = ctx.Education.Where(s => s.EmployeeId == employeeId);
             }
         }
 
@@ -66,8 +74,42 @@ namespace test
 
                 }
 
+
+
+                IList<Education> listOfEducations = new List<Education>();
+                var EmployeeId = (ctx.Employees.Where
+                    (c => c.Name == "Vasya Pupkin").Select(c => c.EmployeeId)).FirstOrDefault();
+                var TrainingId = (ctx.Trainings.Where(c => c.Name == "Math").Select(c => c.TrainingId)).FirstOrDefault();
+
+
+                listOfEducations.Add(new Education() { EducationGuid = Guid.NewGuid(),EmployeeId = EmployeeId ,TrainingId = TrainingId});
+                 EmployeeId = (ctx.Employees.Where
+                   (c => c.Name == "Kolya Petrov").Select(c => c.EmployeeId)).FirstOrDefault();
+                 TrainingId = (ctx.Trainings.Where(c => c.Name == "Stats").Select(c => c.TrainingId)).FirstOrDefault();
+
+
+                listOfEducations.Add(new Education() { EducationGuid = Guid.NewGuid(), EmployeeId = EmployeeId, TrainingId = TrainingId });
+
+                listOfEducations.Add(new Education() { EducationGuid = Guid.NewGuid(), EmployeeId = EmployeeId, TrainingId = TrainingId });
+                EmployeeId = (ctx.Employees.Where
+                  (c => c.Name == "Petya Vasechkin").Select(c => c.EmployeeId)).FirstOrDefault();
+                TrainingId = (ctx.Trainings.Where(c => c.Name == "Physics").Select(c => c.TrainingId)).FirstOrDefault();
+
+
+                listOfEducations.Add(new Education() { EducationGuid = Guid.NewGuid(), EmployeeId = EmployeeId, TrainingId = TrainingId });
+                foreach (Education std in listOfEducations)
+                {
+                    ctx.Education.Add(std);
+
+                }
                 ctx.SaveChanges();
             }
         }
+
+      
+
+      
+
+       
     }
 }

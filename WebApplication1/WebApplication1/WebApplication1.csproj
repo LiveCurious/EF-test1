@@ -78,6 +78,7 @@
     <Content Include="Index.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Education.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MyInterviewDBInitializer.cs">
       <SubType>Code</SubType>

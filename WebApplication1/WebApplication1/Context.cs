@@ -20,7 +20,7 @@ namespace test
 
             public DbSet<Employee> Employees { get; set; }
             public DbSet<Training> Trainings { get; set; }
-         
+            public DbSet<Education> Education { get; set; }
 
         }
     }
